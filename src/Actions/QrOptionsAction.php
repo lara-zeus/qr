@@ -10,9 +10,9 @@ use LaraZeus\Qr\Facades\Qr;
 
 class QrOptionsAction extends Action
 {
-    public Closure|string $parentState;
+    public Closure | string $parentState;
 
-    public Closure|null $configureActionUsing;
+    public ?Closure $configureActionUsing;
 
     /*public static function make(?string $name = null): static
     {
@@ -37,15 +37,15 @@ class QrOptionsAction extends Action
 
         $this->fillForm(function (Get $get) {
             $getName = $this->getParentState();
-            $data = $get($getName.'.options') ?? Qr::getDefaultOptions();
+            $data = $get($getName . '.options') ?? Qr::getDefaultOptions();
 
             return [
                 'options' => $data,
-                'url' => $get($getName.'.url'),
+                'url' => $get($getName . '.url'),
             ];
         });
 
-        $this->form(fn() => Qr::getFormSchema($this->getParentState()));
+        $this->form(fn () => Qr::getFormSchema($this->getParentState()));
 
         $this->action(function (Set $set, $data) {
             $getName = $this->getParentState();
@@ -57,9 +57,9 @@ class QrOptionsAction extends Action
             ->tooltip('customize the QR code design')
             ->iconButton();
 
-        $this->modalHeading(fn(): string => __('manage short link'));
+        $this->modalHeading(fn (): string => __('manage short link'));
 
-        $this->modalDescription(fn(): string => __('Create short link with QR code'));
+        $this->modalDescription(fn (): string => __('Create short link with QR code'));
 
         $this->modalIcon('heroicon-o-qr-code');
 
@@ -70,14 +70,14 @@ class QrOptionsAction extends Action
         $this->successNotificationTitle(__('Saved'));
     }
 
-    public function parentState(Closure|string $url): static
+    public function parentState(Closure | string $url): static
     {
         $this->parentState = $url;
 
         return $this;
     }
 
-    public function getParentState(): Closure|string
+    public function getParentState(): Closure | string
     {
         return $this->evaluate($this->parentState);
     }
@@ -89,7 +89,7 @@ class QrOptionsAction extends Action
         return $this;
     }
 
-    public function getActionConfig(): Closure|null
+    public function getActionConfig(): ?Closure
     {
         return $this->configureActionUsing;
     }

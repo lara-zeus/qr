@@ -138,7 +138,7 @@ class Qr extends Facade
                                     'sm' => 1,
                                     'lg' => 2,
                                 ])
-                                ->visible(fn(\Filament\Forms\Get $get) => $get('hasGradient')),
+                                ->visible(fn (\Filament\Forms\Get $get) => $get('hasGradient')),
 
                             Toggle::make('hasEyeColor')
                                 ->live()
@@ -180,7 +180,7 @@ class Qr extends Facade
                                     'sm' => 1,
                                     'lg' => 2,
                                 ])
-                                ->visible(fn(Get $get) => $get('hasEyeColor')),
+                                ->visible(fn (Get $get) => $get('hasEyeColor')),
                         ]),
 
                     Placeholder::make('preview')
@@ -192,13 +192,13 @@ class Qr extends Facade
                             'options' => fn(Get $get) => $get('options'),
                             'url' => fn(Get $get) => $get('url'),
                         ])*/
-                    ->content(function (Get $get) use($parentName) {
-                        return New HtmlString(view('zeus-qr::download',[
-                            'options' => $get('options'),
-                            'url' => $get('url'),
-                            'parentName' => $parentName,
-                        ])->render());
-                    }),
+                        ->content(function (Get $get) use ($parentName) {
+                            return new HtmlString(view('zeus-qr::download', [
+                                'options' => $get('options'),
+                                'url' => $get('url'),
+                                'parentName' => $parentName,
+                            ])->render());
+                        }),
                 ]),
         ];
     }
@@ -272,5 +272,4 @@ class Qr extends Facade
         // @phpstan-ignore-next-line
         return $maker->generate(($url ?? 'https://'))->toHtml();
     }
-
 }

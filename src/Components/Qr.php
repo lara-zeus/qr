@@ -13,7 +13,7 @@ class Qr extends Component
 {
     use HasName;
 
-    public Closure|null $configureActionUsing = null;
+    public ?Closure $configureActionUsing = null;
 
     protected string $view = 'filament-forms::components.grid';
 
@@ -39,8 +39,9 @@ class Qr extends Component
 
         $this->schema(function () {
             $getName = $this->getName();
+
             return [
-                TextInput::make($getName.'.url')
+                TextInput::make($getName . '.url')
                     ->live()
                     ->default('https://')
                     ->hintAction(
@@ -54,14 +55,14 @@ class Qr extends Component
         });
     }
 
-    public function configureActionUsing(Closure|null $callback): static
+    public function configureActionUsing(?Closure $callback): static
     {
         $this->configureActionUsing = $callback;
 
         return $this;
     }
 
-    public function getConfigureActionUsing(Action $action): Closure|null
+    public function getConfigureActionUsing(Action $action): ?Closure
     {
         return $this->evaluate($this->configureActionUsing, [
             'action' => $action,

@@ -44,7 +44,7 @@ class Qr extends Component
                 TextInput::make($getName . '.url')
                     ->live()
                     ->default('https://')
-                    ->hintAction(
+                    ->suffixAction(
                         QrOptionsAction::make('qr-code-design')
                             ->parentState($getName)
                         /*->configureActionUsing(function (QrOptionsAction $action) {

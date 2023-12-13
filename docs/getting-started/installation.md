@@ -16,7 +16,9 @@ composer require lara-zeus/qr
 use it in your resource
 
 ```php
-Qr::make('link')
-    // soon
+\LaraZeus\Qr\Components\Qr::make('qr_code')
+    // more options soon
     ,
 ```
+
+and soon for table and infolist.

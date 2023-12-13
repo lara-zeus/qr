@@ -1,4 +1,4 @@
-# Zeus Qr Input
+# Zeus Qr Field
 
 Qr Code Input to generate Qr Code with designing options for filamentPHP
 

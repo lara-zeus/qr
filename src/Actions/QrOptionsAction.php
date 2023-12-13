@@ -57,15 +57,17 @@ class QrOptionsAction extends Action
             ->tooltip('customize the QR code design')
             ->iconButton();
 
-        $this->modalHeading(fn (): string => __('manage short link'));
+        $this->modalHeading(fn (): string => __('QR code Design'));
 
-        $this->modalDescription(fn (): string => __('Create short link with QR code'));
+        $this->modalDescription(fn (): string => __('customize the QR code design'));
 
         $this->modalIcon('heroicon-o-qr-code');
 
         $this->modalIconColor('info');
 
         $this->modalSubmitActionLabel(__('save'));
+
+        $this->modalCancelAction(false);
 
         $this->successNotificationTitle(__('Saved'));
     }

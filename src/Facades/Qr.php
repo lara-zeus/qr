@@ -63,6 +63,7 @@ class Qr extends Facade
                                 ->live()
                                 ->default(1)
                                 ->label(__('Margin'))
+                                ->selectablePlaceholder(false)
                                 ->options([
                                     '0' => '0',
                                     '1' => '1',
@@ -84,6 +85,7 @@ class Qr extends Facade
                                 ->rgb(),
 
                             Select::make('style')
+                                ->selectablePlaceholder(false)
                                 ->live()
                                 ->label(__('Style'))
                                 ->default('square')
@@ -119,6 +121,7 @@ class Qr extends Facade
                                         ->rgb(),
 
                                     Select::make('gradient_type')
+                                        ->selectablePlaceholder(false)
                                         ->default('vertical')
                                         ->live()
                                         ->label(__('Gradient Type'))
@@ -150,28 +153,30 @@ class Qr extends Facade
                                 ])
                                 ->label(__('Eye Config')),
 
-                            Grid::make()->schema([
-                                ColorPicker::make('eye_color_inner')
-                                    ->live()
-                                    ->default('rgb(241, 148, 138)')
-                                    ->label(__('Inner Eye Color'))
-                                    ->rgb(),
+                            Grid::make()
+                                ->schema([
+                                    ColorPicker::make('eye_color_inner')
+                                        ->live()
+                                        ->default('rgb(241, 148, 138)')
+                                        ->label(__('Inner Eye Color'))
+                                        ->rgb(),
 
-                                ColorPicker::make('eye_color_outer')
-                                    ->live()
-                                    ->default('rgb(69, 179, 157)')
-                                    ->label(__('Outer Eye Color'))
-                                    ->rgb(),
+                                    ColorPicker::make('eye_color_outer')
+                                        ->live()
+                                        ->default('rgb(69, 179, 157)')
+                                        ->label(__('Outer Eye Color'))
+                                        ->rgb(),
 
-                                Select::make('eye_style')
-                                    ->live()
-                                    ->default('square')
-                                    ->label(__('Eye Style'))
-                                    ->options([
-                                        'square' => __('square'),
-                                        'circle' => __('circle'),
-                                    ]),
-                            ])
+                                    Select::make('eye_style')
+                                        ->selectablePlaceholder(false)
+                                        ->live()
+                                        ->default('square')
+                                        ->label(__('Eye Style'))
+                                        ->options([
+                                            'square' => __('square'),
+                                            'circle' => __('circle'),
+                                        ]),
+                                ])
                                 ->columns([
                                     'sm' => 1,
                                     'lg' => 3,
@@ -207,27 +212,20 @@ class Qr extends Facade
     {
         $maker = new Generator();
 
-        if ($data['color'] !== null) {
-            $colorRGB = str_replace(['rgb(', ')'], '', $data['color']);
-            $colorRGB = explode(',', $colorRGB);
-            call_user_func_array([$maker, 'color'], $colorRGB);
-        }
+        $getColor = filled($data['color']) ? $data['color'] : static::getDefaultOptions()['color'];
+        $getColorArray = str($getColor)->replace(['rgb(', ')'], '')->explode(',')->toArray();
+        call_user_func_array([$maker, 'color'], $getColorArray);
 
-        if ($data['back_color'] !== null) {
-            $back_colorRGB = str_replace(['rgb(', ')'], '', $data['back_color']);
-            $back_colorRGB = explode(',', $back_colorRGB);
-            call_user_func_array([$maker, 'backgroundColor'], $back_colorRGB);
-        }
+        $getBackColor = filled($data['back_color']) ? $data['back_color'] : static::getDefaultOptions()['back_color'];
+        $colorBackRGB = str($getBackColor)->replace(['rgb(', ')'], '')->explode(',')->toArray();
+        call_user_func_array([$maker, 'backgroundColor'], $colorBackRGB);
 
-        $maker = $maker->size($data['size']);
+        $maker = $maker->size($data['size'] ?? static::getDefaultOptions()['size']);
 
         if ($data['hasGradient']) {
-            if ($data['gradient_to'] !== null && $data['gradient_form'] !== null) {
-                $gradient_form = str_replace(['rgb(', ')'], '', $data['gradient_form']);
-                $gradient_form = explode(',', $gradient_form);
-
-                $gradient_to = str_replace(['rgb(', ')'], '', $data['gradient_to']);
-                $gradient_to = explode(',', $gradient_to);
+            if (filled($data['gradient_to']) && filled($data['gradient_form'])) {
+                $gradient_form = str($data['gradient_form'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
+                $gradient_to = str($data['gradient_to'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
 
                 $options = array_merge($gradient_to, $gradient_form, [$data['gradient_type']]);
                 call_user_func_array([$maker, 'gradient'], $options);
@@ -235,12 +233,9 @@ class Qr extends Facade
         }
 
         if ($data['hasEyeColor']) {
-            if ($data['eye_color_inner'] !== null && $data['eye_color_outer'] !== null) {
-                $eye_color_inner = str_replace(['rgb(', ')'], '', $data['eye_color_inner']);
-                $eye_color_inner = explode(',', $eye_color_inner);
-
-                $eye_color_outer = str_replace(['rgb(', ')'], '', $data['eye_color_outer']);
-                $eye_color_outer = explode(',', $eye_color_outer);
+            if (filled($data['eye_color_inner']) && filled($data['eye_color_outer'])) {
+                $eye_color_inner = str($data['eye_color_inner'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
+                $eye_color_outer = str($data['eye_color_outer'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
 
                 $options = array_merge([0], $eye_color_inner, $eye_color_outer);
                 call_user_func_array([$maker, 'eyeColor'], $options);
@@ -253,15 +248,15 @@ class Qr extends Facade
             }
         }
 
-        if ($data['margin'] !== null) {
+        if (filled($data['margin'])) {
             $maker = $maker->margin($data['margin']);
         }
 
-        if ($data['style'] !== null) {
+        if (filled($data['style'])) {
             $maker = $maker->style($data['style']);
         }
 
-        if (isset($data['eye_style']) && filled($data['eye_style'])) {
+        if (filled($data['eye_style'])) {
             $maker = $maker->eye($data['eye_style']);
         }
 

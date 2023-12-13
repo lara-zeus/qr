@@ -47,9 +47,9 @@ class Qr extends Component
                     ->hintAction(
                         QrOptionsAction::make('qr-code-design')
                             ->parentState($getName)
-                            ->configureActionUsing(function (QrOptionsAction $action) {
-                                return $this->getConfigureActionUsing($action);
-                            })
+                        /*->configureActionUsing(function (QrOptionsAction $action) {
+                            return $this->getConfigureActionUsing($action);
+                        })*/
                     ),
             ];
         });

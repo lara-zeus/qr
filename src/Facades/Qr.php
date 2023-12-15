@@ -40,19 +40,19 @@ class Qr extends Facade
         ];
     }
 
-    public static function getFormSchema(string $parentName): array
+    public static function getFormSchema(string $parentName, $optionsName): array
     {
         return [
             Grid::make('2')
                 ->schema([
-                    TextInput::make('url')
+                    TextInput::make($parentName)
                         ->columnSpanFull()
                         ->default('https://'),
                     Section::make()
                         ->id('main-card')
                         ->columnSpan(1)
                         ->columns(['sm' => 1, 'md' => 2])
-                        ->statePath('options')
+                        ->statePath($optionsName)
                         ->schema([
                             TextInput::make('size')
                                 ->live()
@@ -197,10 +197,10 @@ class Qr extends Facade
                             'options' => fn(Get $get) => $get('options'),
                             'url' => fn(Get $get) => $get('url'),
                         ])*/
-                        ->content(function (Get $get) use ($parentName) {
+                        ->content(function (Get $get) use ($parentName, $optionsName) {
                             return new HtmlString(view('zeus-qr::download', [
-                                'options' => $get('options'),
-                                'url' => $get('url'),
+                                $optionsName => $get($optionsName),
+                                'url' => $get($parentName),
                                 'parentName' => $parentName,
                             ])->render());
                         }),

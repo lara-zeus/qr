@@ -10,7 +10,9 @@ use LaraZeus\Qr\Facades\Qr;
 
 class QrOptionsAction extends Action
 {
-    public Closure | string $parentState;
+    public string $parentState;
+
+    public string $optionsColumn = '';
 
     public ?Closure $configureActionUsing;
 
@@ -37,23 +39,23 @@ class QrOptionsAction extends Action
 
         $this->fillForm(function (Get $get) {
             $getName = $this->getParentState();
-            $data = $get($getName . '.options') ?? Qr::getDefaultOptions();
+            $getOptionsColumn = $this->getOptionsColumn();
+            $data = $get($getOptionsColumn) ?? Qr::getDefaultOptions();
 
             return [
-                'options' => $data,
-                'url' => $get($getName . '.url'),
+                $getOptionsColumn => $data,
+                $getName => $get($getName),
             ];
         });
 
-        $this->form(fn () => Qr::getFormSchema($this->getParentState()));
+        $this->form(fn () => Qr::getFormSchema($this->getParentState(),$this->getOptionsColumn()));
 
         $this->action(function (Set $set, $data) {
-            $getName = $this->getParentState();
-            $set($getName, $data);
+            $set($this->getParentState(), $data[$this->getParentState()]);
+            $set($this->getOptionsColumn(), $data[$this->getOptionsColumn()]);
         });
 
         $this->color('gray')
-            ->icon('heroicon-o-qr-code')
             ->tooltip('customize the QR code design')
             ->iconButton();
 
@@ -72,14 +74,14 @@ class QrOptionsAction extends Action
         $this->successNotificationTitle(__('Saved'));
     }
 
-    public function parentState(Closure | string $url): static
+    public function parentState(string $url): static
     {
         $this->parentState = $url;
 
         return $this;
     }
 
-    public function getParentState(): Closure | string
+    public function getParentState(): string
     {
         return $this->evaluate($this->parentState);
     }
@@ -94,5 +96,17 @@ class QrOptionsAction extends Action
     public function getActionConfig(): ?Closure
     {
         return $this->configureActionUsing;
+    }
+
+    public function optionsColumn(string $column): static
+    {
+        $this->optionsColumn = $column;
+
+        return $this;
+    }
+
+    public function getOptionsColumn(): string
+    {
+        return $this->optionsColumn;
     }
 }

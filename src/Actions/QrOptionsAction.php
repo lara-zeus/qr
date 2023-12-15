@@ -48,7 +48,7 @@ class QrOptionsAction extends Action
             ];
         });
 
-        $this->form(fn () => Qr::getFormSchema($this->getParentState(),$this->getOptionsColumn()));
+        $this->form(fn () => Qr::getFormSchema($this->getParentState(), $this->getOptionsColumn()));
 
         $this->action(function (Set $set, $data) {
             $set($this->getParentState(), $data[$this->getParentState()]);

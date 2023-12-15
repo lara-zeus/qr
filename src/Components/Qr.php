@@ -55,8 +55,8 @@ class Qr extends Component
                     ->default('https://')
                     ->suffixAction(
                         QrOptionsAction::make('qr-code-design')
-                            ->slideOver(fn()=>$this->isAsSlideOver())
-                            ->icon(fn()=>$this->getActionIcon())
+                            ->slideOver(fn () => $this->isAsSlideOver())
+                            ->icon(fn () => $this->getActionIcon())
                             ->parentState($getName)
                             ->optionsColumn($getOptionsColumn)
                         /*->configureActionUsing(function (QrOptionsAction $action) {

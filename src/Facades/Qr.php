@@ -40,7 +40,7 @@ class Qr extends Facade
         ];
     }
 
-    public static function getFormSchema(string $parentName,$optionsName): array
+    public static function getFormSchema(string $parentName, $optionsName): array
     {
         return [
             Grid::make('2')
@@ -197,7 +197,7 @@ class Qr extends Facade
                             'options' => fn(Get $get) => $get('options'),
                             'url' => fn(Get $get) => $get('url'),
                         ])*/
-                        ->content(function (Get $get) use ($parentName,$optionsName) {
+                        ->content(function (Get $get) use ($parentName, $optionsName) {
                             return new HtmlString(view('zeus-qr::download', [
                                 $optionsName => $get($optionsName),
                                 'url' => $get($parentName),

@@ -48,7 +48,7 @@ class Qr extends Component
             $getOptionsColumn = $this->getOptionsColumn();
 
             return [
-                Hidden::make('options'),
+                Hidden::make($getOptionsColumn),
 
                 TextInput::make($getName)
                     ->live()

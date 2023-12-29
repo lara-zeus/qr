@@ -40,18 +40,19 @@ class Qr extends Facade
         ];
     }
 
-    public static function getFormSchema(string $parentName, $optionsName): array
+    public static function getFormSchema(string $parentName, string $optionsName): array
     {
         return [
-            Grid::make('2')
+            TextInput::make($parentName)
+                ->default('https://'),
+
+            Grid::make()
                 ->schema([
-                    TextInput::make($parentName)
-                        ->columnSpanFull()
-                        ->default('https://'),
+
                     Section::make()
                         ->id('main-card')
-                        ->columnSpan(1)
-                        ->columns(['sm' => 1, 'md' => 2])
+                        ->columns(['sm' => 2])
+                        ->columnSpan(['sm' => 2, 'lg' => 1])
                         ->statePath($optionsName)
                         ->schema([
                             TextInput::make('size')
@@ -87,6 +88,7 @@ class Qr extends Facade
                             Select::make('style')
                                 ->selectablePlaceholder(false)
                                 ->live()
+                                ->columnSpanFull()
                                 ->label(__('Style'))
                                 ->default('square')
                                 ->options([
@@ -99,10 +101,7 @@ class Qr extends Facade
                                 ->live()
                                 ->inline()
                                 ->default(false)
-                                ->columnSpan([
-                                    'sm' => 1,
-                                    'lg' => 2,
-                                ])
+                                ->columnSpanFull()
                                 ->reactive()
                                 ->label(__('Gradient')),
 
@@ -122,6 +121,7 @@ class Qr extends Facade
 
                                     Select::make('gradient_type')
                                         ->selectablePlaceholder(false)
+                                        ->columnSpanFull()
                                         ->default('vertical')
                                         ->live()
                                         ->label(__('Gradient Type'))
@@ -133,24 +133,15 @@ class Qr extends Facade
                                             'radial' => __('radial'),
                                         ]),
                                 ])
-                                ->columns([
-                                    'sm' => 1,
-                                    'lg' => 3,
-                                ])
-                                ->columnSpan([
-                                    'sm' => 1,
-                                    'lg' => 2,
-                                ])
-                                ->visible(fn (\Filament\Forms\Get $get) => $get('hasGradient')),
+                                ->columnSpan(['sm' => 2])
+                                ->columns(['sm' => 2])
+                                ->visible(fn (Get $get) => $get('hasGradient')),
 
                             Toggle::make('hasEyeColor')
                                 ->live()
                                 ->inline()
+                                ->columnSpanFull()
                                 ->default(false)
-                                ->columnSpan([
-                                    'sm' => 1,
-                                    'lg' => 2,
-                                ])
                                 ->label(__('Eye Config')),
 
                             Grid::make()
@@ -168,6 +159,7 @@ class Qr extends Facade
                                         ->rgb(),
 
                                     Select::make('eye_style')
+                                        ->columnSpanFull()
                                         ->selectablePlaceholder(false)
                                         ->live()
                                         ->default('square')
@@ -177,29 +169,19 @@ class Qr extends Facade
                                             'circle' => __('circle'),
                                         ]),
                                 ])
-                                ->columns([
-                                    'sm' => 1,
-                                    'lg' => 3,
-                                ])
-                                ->columnSpan([
-                                    'sm' => 1,
-                                    'lg' => 2,
-                                ])
+                                ->columnSpan(['sm' => 2])
+                                ->columns(['sm' => 2])
                                 ->visible(fn (Get $get) => $get('hasEyeColor')),
                         ]),
 
                     Placeholder::make('preview')
-                        ->columnSpan(1)
+                        ->columns(['sm' => 2])
+                        ->columnSpan(['sm' => 2, 'lg' => 1])
                         ->key('preview_placeholder')
-                        // todo cant get the live state
-                        /*->view('zeus-qr::download')
-                        ->viewData([
-                            'options' => fn(Get $get) => $get('options'),
-                            'url' => fn(Get $get) => $get('url'),
-                        ])*/
                         ->content(function (Get $get) use ($parentName, $optionsName) {
                             return new HtmlString(view('zeus-qr::download', [
                                 $optionsName => $get($optionsName),
+                                'optionsName' => $optionsName,
                                 'url' => $get($parentName),
                                 'parentName' => $parentName,
                             ])->render());

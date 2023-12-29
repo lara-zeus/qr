@@ -12,7 +12,8 @@
     </div>
 
     <div class="{{ $parentName }} text-center flex flex-col justify-center items-center">
-        {!! \LaraZeus\Qr\Facades\Qr::qrRender($options, $url) !!}
+
+        {!! \LaraZeus\Qr\Facades\Qr::qrRender($$optionsName, $url) !!}
 
         <x-filament::button
             color="info"

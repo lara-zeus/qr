@@ -6,7 +6,7 @@ weight: 1
 ## Introduction
 @zeus Qr Code Input to generate Qr Code with designing options for filamentPHP.
 
-**[Demo](https://demo.larazeus.com/admin/users/create) · [Github](https://github.com/lara-zeus/qr) · [Discord](https://discord.com/channels/883083792112300104/1177055691203158066)**
+**[Demo](https://demo.larazeus.com/admin/qr-code) · [Github](https://github.com/lara-zeus/qr) · [Discord](https://discord.com/channels/883083792112300104/1184785550964686919)**
 
 
 ## features
@@ -34,6 +34,6 @@ weight: 1
 
 Available support channels:
 
-* Join our channel in discord [Discord](https://discord.com/channels/883083792112300104/1177055691203158066)
-* open an issue on [GitHub](https://github.com/lara-zeus/qr/issues)
-* Email us using the [contact center](https://still-code.com/contact-us/lara-zeus)
+* Join our channel in discord [Discord](https://discord.com/channels/883083792112300104/1184785550964686919)
+* Open an issue on [GitHub](https://github.com/lara-zeus/qr/issues)
+* Email us using the [contact center](https://larazeus.com/contact-us)

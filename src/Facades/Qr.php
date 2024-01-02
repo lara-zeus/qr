@@ -40,10 +40,11 @@ class Qr extends Facade
         ];
     }
 
-    public static function getFormSchema(string $parentName, string $optionsName): array
+    public static function getFormSchema(string $statePath, string $optionsStatePath, bool $showUrl = true): array
     {
         return [
-            TextInput::make($parentName)
+            TextInput::make($statePath)
+                //->visible($showUrl) // todo for helen
                 ->default('https://'),
 
             Grid::make()
@@ -53,7 +54,7 @@ class Qr extends Facade
                         ->id('main-card')
                         ->columns(['sm' => 2])
                         ->columnSpan(['sm' => 2, 'lg' => 1])
-                        ->statePath($optionsName)
+                        ->statePath($optionsStatePath)
                         ->schema([
                             TextInput::make('size')
                                 ->live()
@@ -178,75 +179,102 @@ class Qr extends Facade
                         ->columns(['sm' => 2])
                         ->columnSpan(['sm' => 2, 'lg' => 1])
                         ->key('preview_placeholder')
-                        ->content(function (Get $get) use ($parentName, $optionsName) {
-                            return new HtmlString(view('zeus-qr::download', [
-                                $optionsName => $get($optionsName),
-                                'optionsName' => $optionsName,
-                                'url' => $get($parentName),
-                                'parentName' => $parentName,
-                            ])->render());
-                        }),
+                        ->content(fn (Get $get) => Qr::render(
+                            data: $get($statePath),
+                            options: $get($optionsStatePath),
+                            statePath: $statePath,
+                            optionsStatePath: $optionsStatePath
+                        )),
                 ]),
         ];
     }
 
-    public static function qrRender(array $data, ?string $url): string
+    // @internal
+    public static function output(?string $data = null, ?array $options = null): HtmlString
     {
         $maker = new Generator();
 
-        $getColor = filled($data['color']) ? $data['color'] : static::getDefaultOptions()['color'];
+        $options = $options ?? Qr::getDefaultOptions();
+
+        $getColor = filled($options['color']) ? $options['color'] : static::getDefaultOptions()['color'];
         $getColorArray = str($getColor)->replace(['rgb(', ')'], '')->explode(',')->toArray();
         call_user_func_array([$maker, 'color'], $getColorArray);
 
-        $getBackColor = filled($data['back_color']) ? $data['back_color'] : static::getDefaultOptions()['back_color'];
+        $getBackColor = filled($options['back_color']) ? $options['back_color'] : static::getDefaultOptions()['back_color'];
         $colorBackRGB = str($getBackColor)->replace(['rgb(', ')'], '')->explode(',')->toArray();
         call_user_func_array([$maker, 'backgroundColor'], $colorBackRGB);
 
-        $maker = $maker->size($data['size'] ?? static::getDefaultOptions()['size']);
+        $maker = $maker->size($options['size'] ?? static::getDefaultOptions()['size']);
 
-        if ($data['hasGradient']) {
-            if (filled($data['gradient_to']) && filled($data['gradient_form'])) {
-                $gradient_form = str($data['gradient_form'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
-                $gradient_to = str($data['gradient_to'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
+        if ($options['hasGradient']) {
+            if (filled($options['gradient_to']) && filled($options['gradient_form'])) {
+                $gradient_form = str($options['gradient_form'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
+                $gradient_to = str($options['gradient_to'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
 
-                $options = array_merge($gradient_to, $gradient_form, [$data['gradient_type']]);
-                call_user_func_array([$maker, 'gradient'], $options);
+                $gradientOptions = array_merge($gradient_to, $gradient_form, [$options['gradient_type']]);
+                call_user_func_array([$maker, 'gradient'], $gradientOptions);
             }
         }
 
-        if ($data['hasEyeColor']) {
-            if (filled($data['eye_color_inner']) && filled($data['eye_color_outer'])) {
-                $eye_color_inner = str($data['eye_color_inner'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
-                $eye_color_outer = str($data['eye_color_outer'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
+        if ($options['hasEyeColor']) {
+            if (filled($options['eye_color_inner']) && filled($options['eye_color_outer'])) {
+                $eye_color_inner = str($options['eye_color_inner'])->replace(
+                    ['rgb(', ')'],
+                    ''
+                )->explode(',')->toArray();
+                $eye_color_outer = str($options['eye_color_outer'])->replace(
+                    ['rgb(', ')'],
+                    ''
+                )->explode(',')->toArray();
 
-                $options = array_merge([0], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $options);
+                $eyeColorInnerOptions = array_merge([0], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
 
-                $options = array_merge([1], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $options);
+                $eyeColorInnerOptions = array_merge([1], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
 
-                $options = array_merge([2], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $options);
+                $eyeColorInnerOptions = array_merge([2], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
             }
         }
 
-        if (filled($data['margin'])) {
-            $maker = $maker->margin($data['margin']);
+        if (filled($options['margin'])) {
+            $maker = $maker->margin($options['margin']);
         }
 
-        if (filled($data['style'])) {
-            $maker = $maker->style($data['style']);
+        if (filled($options['style'])) {
+            $maker = $maker->style($options['style']);
         }
 
-        if (filled($data['eye_style'])) {
-            $maker = $maker->eye($data['eye_style']);
+        if (filled($options['eye_style'])) {
+            $maker = $maker->eye($options['eye_style']);
         }
 
-        /*if ($data['logo'] !== null) {
+        /*if ($options['logo'] !== null) {
             $maker = $maker->merge('/public/images/logo-5-110px-instagram.png', .4,false);
         }*/
 
-        // @phpstan-ignore-next-line
-        return $maker->generate(($url ?? 'https://'))->toHtml();
+        return new HtmlString(
+            // @phpstan-ignore-next-line
+            $maker->generate(($data ?? 'https://'))->toHtml()
+        );
+    }
+
+    public static function render(
+        ?string $data = null,
+        ?array $options = null,
+        string $statePath = 'url',
+        string $optionsStatePath = 'options',
+        bool $downloadable = true
+    ): HtmlString {
+        return new HtmlString(
+            view('zeus-qr::download', [
+                'optionsStatePath' => $optionsStatePath,
+                'statePath' => $statePath,
+                'data' => $data,
+                'options' => $options ?? Qr::getDefaultOptions(),
+                'downloadable' => $downloadable,
+            ])->render()
+        );
     }
 }

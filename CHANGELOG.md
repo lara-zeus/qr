@@ -2,6 +2,16 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.1 - 2024-01-12
+
+### What's Changed
+
+#### new feature:
+
+* add the ability to select transparent background color by @atmonshi in https://github.com/lara-zeus/qr/pull/7
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.0...1.1.1
+
 ## 1.1.0 - 2024-01-02
 
 ### What's Changed

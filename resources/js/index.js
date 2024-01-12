@@ -4,8 +4,8 @@ import { saveAs } from 'file-saver'
 export default function qrPlugin(
   {
     state,
-  }
-  ) {
+  },
+) {
   return {
     state,
 
@@ -15,13 +15,24 @@ export default function qrPlugin(
   }
 };
 
-window.download = function(fileName) {
-  var node = document.querySelector('.'+fileName+' svg')
-  domtoimage.toBlob(node)
-    .then(function(blob) {
-      saveAs(blob, fileName + '.png')
-    })
-    .catch(function(error) {
-      console.error('oops, something went wrong!', error)
-    })
+window.download = function(fileName, downType) {
+  var node = document.querySelector('.' + fileName + ' svg')
+
+  if (downType === 'svg') {
+    domtoimage.toSvg(node)
+      .then(function(blob) {
+        saveAs(blob, fileName + '.svg')
+      })
+      .catch(function(error) {
+        console.error('oops, something went wrong!', error)
+      })
+  } else {
+    domtoimage.toPng(node)
+      .then(function(blob) {
+        saveAs(blob, fileName + '.png')
+      })
+      .catch(function(error) {
+        console.error('oops, something went wrong!', error)
+      })
+  }
 }

@@ -12,13 +12,25 @@
     </div>
 
     @if($downloadable)
-        <x-filament::button
-            color="info"
-            size="sm"
-            icon="heroicon-o-arrow-down-tray"
-            @click="download('{{ $statePath }}');"
-        >
-            {{ __('Download') }}
-        </x-filament::button>
+        <div class="flex items-center gap-4">
+            <x-filament::button
+                    :tooltip="__('Download as a PNG image')"
+                    color="info"
+                    size="sm"
+                    icon="heroicon-o-arrow-down-tray"
+                    @click="download('{{ $statePath }}','png');"
+            >
+                {{ __('png') }}
+            </x-filament::button>
+            <x-filament::button
+                    :tooltip="__('Download as a SVG image')"
+                    color="info"
+                    size="sm"
+                    icon="heroicon-o-arrow-down-tray"
+                    @click="download('{{ $statePath }}','svg');"
+            >
+                {{ __('svg') }}
+            </x-filament::button>
+        </div>
     @endif
 </div>

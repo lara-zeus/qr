@@ -252,7 +252,7 @@ class Qr extends Facade
 
         return new HtmlString(
             // @phpstan-ignore-next-line
-            $maker->generate(($data ?? 'https://'))->toHtml()
+            $maker->format('svg')->generate(($data ?? 'https://'))->toHtml()
         );
     }
 

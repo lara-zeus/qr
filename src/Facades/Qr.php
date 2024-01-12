@@ -26,8 +26,8 @@ class Qr extends Facade
         return [
             'size' => '300',
             'margin' => '1',
-            'color' => 'rgb(74, 74, 74)',
-            'back_color' => 'rgb(252, 252, 252)',
+            'color' => 'rgba(74, 74, 74, 1)',
+            'back_color' => 'rgba(252, 252, 252, 1)',
             'style' => 'square',
             'hasGradient' => false,
             'gradient_form' => 'rgb(69, 179, 157)',
@@ -76,15 +76,15 @@ class Qr extends Facade
 
                             ColorPicker::make('color')
                                 ->live()
-                                ->default('rgb(74, 74, 74)')
+                                ->default('rgba(74, 74, 74, 1)')
                                 ->label(__('Color'))
-                                ->rgb(),
+                                ->rgba(),
 
                             ColorPicker::make('back_color')
                                 ->live()
-                                ->default('rgb(252, 252, 252)')
+                                ->default('rgba(252, 252, 252, 1)')
                                 ->label(__('Back Color'))
-                                ->rgb(),
+                                ->rgba(),
 
                             Select::make('style')
                                 ->selectablePlaceholder(false)
@@ -110,12 +110,12 @@ class Qr extends Facade
                                 ->schema([
                                     ColorPicker::make('gradient_form')
                                         ->live()
-                                        ->default('rgb(69, 179, 157)')
+                                        ->default('rgba(69, 179, 157, 1)')
                                         ->label(__('Gradient From'))
                                         ->rgb(),
 
                                     ColorPicker::make('gradient_to')
-                                        ->default('rgb(241, 148, 138)')
+                                        ->default('rgba(241, 148, 138, 1)')
                                         ->live()
                                         ->label(__('Gradient To'))
                                         ->rgb(),
@@ -196,20 +196,22 @@ class Qr extends Facade
 
         $options = $options ?? Qr::getDefaultOptions();
 
-        $getColor = filled($options['color']) ? $options['color'] : static::getDefaultOptions()['color'];
-        $getColorArray = str($getColor)->replace(['rgb(', ')'], '')->explode(',')->toArray();
-        call_user_func_array([$maker, 'color'], $getColorArray);
+        call_user_func_array(
+            [$maker, 'color'],
+            ColorManager::getColorAsArray($options, 'color')
+        );
 
-        $getBackColor = filled($options['back_color']) ? $options['back_color'] : static::getDefaultOptions()['back_color'];
-        $colorBackRGB = str($getBackColor)->replace(['rgb(', ')'], '')->explode(',')->toArray();
-        call_user_func_array([$maker, 'backgroundColor'], $colorBackRGB);
+        call_user_func_array(
+            [$maker, 'backgroundColor'],
+            ColorManager::getColorAsArray($options, 'back_color')
+        );
 
         $maker = $maker->size($options['size'] ?? static::getDefaultOptions()['size']);
 
         if ($options['hasGradient']) {
             if (filled($options['gradient_to']) && filled($options['gradient_form'])) {
-                $gradient_form = str($options['gradient_form'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
-                $gradient_to = str($options['gradient_to'])->replace(['rgb(', ')'], '')->explode(',')->toArray();
+                $gradient_form = ColorManager::getColorAsArray($options, 'gradient_form');
+                $gradient_to = ColorManager::getColorAsArray($options, 'gradient_to');
 
                 $gradientOptions = array_merge($gradient_to, $gradient_form, [$options['gradient_type']]);
                 call_user_func_array([$maker, 'gradient'], $gradientOptions);
@@ -218,14 +220,8 @@ class Qr extends Facade
 
         if ($options['hasEyeColor']) {
             if (filled($options['eye_color_inner']) && filled($options['eye_color_outer'])) {
-                $eye_color_inner = str($options['eye_color_inner'])->replace(
-                    ['rgb(', ')'],
-                    ''
-                )->explode(',')->toArray();
-                $eye_color_outer = str($options['eye_color_outer'])->replace(
-                    ['rgb(', ')'],
-                    ''
-                )->explode(',')->toArray();
+                $eye_color_inner = ColorManager::getColorAsArray($options, 'eye_color_inner');
+                $eye_color_outer = ColorManager::getColorAsArray($options, 'eye_color_outer');
 
                 $eyeColorInnerOptions = array_merge([0], $eye_color_inner, $eye_color_outer);
                 call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);

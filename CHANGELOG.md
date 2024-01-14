@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.4 - 2024-01-14
+
+### What's Changed
+
+* set default values if the user didn't set one by @atmonshi in https://github.com/lara-zeus/qr/pull/11
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.3...1.1.4
+
 ## 1.1.3 - 2024-01-12
 
 ### What's Changed

@@ -16,7 +16,7 @@ class Qr extends Component
 
     public ?Closure $configureActionUsing = null;
 
-    public string $optionsColumn;
+    public string $optionsColumn = 'options';
 
     public bool $asSlideOver = false;
 
@@ -81,7 +81,7 @@ class Qr extends Component
         ]);
     }
 
-    public function optionsColumn(string $column): static
+    public function optionsColumn(string $column = 'options'): static
     {
         $this->optionsColumn = $column;
 
@@ -90,7 +90,7 @@ class Qr extends Component
 
     public function getOptionsColumn(): string
     {
-        return $this->optionsColumn;
+        return $this->optionsColumn ?? 'options';
     }
 
     public function asSlideOver(bool $condetion = true): static

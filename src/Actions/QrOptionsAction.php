@@ -10,32 +10,27 @@ use LaraZeus\Qr\Facades\Qr;
 
 class QrOptionsAction extends Action
 {
-    public string $parentState;
+    public string $parentState = 'url';
 
-    public string $optionsColumn = '';
+    public string $optionsColumn = 'options';
 
     public ?Closure $configureActionUsing;
 
-    /*public static function make(?string $name = null): static
+    public static function make(?string $name = null): static
     {
         $make = parent::make($name);
 
         // todo, getting $configureActionUsing must not be accessed before initialization
         /*$make->configureUsing(function ($make){
             return $make->getActionConfig();
-        });* /
+        });*/
 
         return $make;
-    }*/
+    }
 
     protected function setUp(): void
     {
         parent::setUp();
-
-        // todo, getting $configureActionUsing must not be accessed before initialization
-        /*$this->tap(function(){
-            return $this->evaluate($this->getActionConfig());
-        });*/
 
         $this->fillForm(function (Get $get) {
             $getName = $this->getParentState();
@@ -55,7 +50,8 @@ class QrOptionsAction extends Action
             $set($this->getOptionsColumn(), $data[$this->getOptionsColumn()]);
         });
 
-        $this->color('gray')
+        $this
+            ->color('gray')
             ->tooltip('customize the QR code design')
             ->iconButton();
 
@@ -74,7 +70,7 @@ class QrOptionsAction extends Action
         $this->successNotificationTitle(__('Saved'));
     }
 
-    public function parentState(string $url): static
+    public function parentState(string $url = 'url'): static
     {
         $this->parentState = $url;
 
@@ -83,7 +79,7 @@ class QrOptionsAction extends Action
 
     public function getParentState(): string
     {
-        return $this->evaluate($this->parentState);
+        return $this->evaluate($this->parentState ?? 'url');
     }
 
     public function configureActionUsing(Closure $callback): static
@@ -98,7 +94,7 @@ class QrOptionsAction extends Action
         return $this->configureActionUsing;
     }
 
-    public function optionsColumn(string $column): static
+    public function optionsColumn(string $column = 'options'): static
     {
         $this->optionsColumn = $column;
 
@@ -107,6 +103,6 @@ class QrOptionsAction extends Action
 
     public function getOptionsColumn(): string
     {
-        return $this->optionsColumn;
+        return $this->optionsColumn ?? 'options';
     }
 }

@@ -63,3 +63,17 @@ PopoverEntry::make('name')
     ->icon('heroicon-o-chevron-right')
     ->content(Qr::render(data:'dataOrUrl')),
 ```
+
+### Usage with any action
+
+to use the QR code as an action in anywhere you want:
+
+```php
+Action::make('qr-action')
+    ->fillForm(fn(Model $record) => [
+        'qr-options' => Qr::getDefaultOptions(),// or $record->qr-options
+        'qr-data' => 'https://',// or $record->url
+    ])
+    ->form(Qr::getFormSchema('qr-data', 'qr-options'))
+    ->action(fn($data) => dd($data)),
+```

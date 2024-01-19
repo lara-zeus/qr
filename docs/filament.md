@@ -29,4 +29,4 @@ Qr Code Input to generate Qr Code with designing options for filamentPHP
 - [Discord](https://discord.com/channels/883083792112300104/1184785550964686919)
 - [Docs](https://larazeus.com/docs/qr)
 - [Github](https://github.com/lara-zeus/qr)
-- [Demo](https://demo.larazeus.com/admin/qr-code)
+- [Demo](https://demo.larazeus.com/admin/components-demo/qr-code)

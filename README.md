@@ -36,7 +36,7 @@
 
 ## Demo
 
-> Visit our demo site: https://demo.larazeus.com/admin/qr-code
+> Visit our demo site: https://demo.larazeus.com/admin/components-demo/qr-code
 
 ## Full Documentation
 

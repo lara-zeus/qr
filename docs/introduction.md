@@ -9,7 +9,8 @@ weight: 1
 **[Demo](https://demo.larazeus.com/admin/components-demo/qr-code) · [Github](https://github.com/lara-zeus/qr) · [Discord](https://discord.com/channels/883083792112300104/1184785550964686919)**
 
 
-## features
+## Features
+
 - 🔥 set the destination URL
 - 🔥 all options in modal or slidOver
 - 🔥 configure all options

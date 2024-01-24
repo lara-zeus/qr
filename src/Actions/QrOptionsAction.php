@@ -52,7 +52,7 @@ class QrOptionsAction extends Action
 
         $this
             ->color('gray')
-            ->tooltip('customize the QR code design')
+            ->tooltip(__('customize the QR code design'))
             ->iconButton();
 
         $this->modalHeading(fn (): string => __('QR code Design'));
@@ -67,7 +67,7 @@ class QrOptionsAction extends Action
 
         $this->modalCancelAction(false);
 
-        $this->successNotificationTitle(__('Saved'));
+        $this->successNotificationTitle(__('Saved Successfully'));
     }
 
     public function parentState(string $url = 'url'): static

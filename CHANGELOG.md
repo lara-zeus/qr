@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.5 - 2024-01-24
+
+### What's Changed
+
+* add translation by @atmonshi in https://github.com/lara-zeus/qr/pull/13
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.4...1.1.5
+
 ## 1.1.4 - 2024-01-14
 
 ### What's Changed

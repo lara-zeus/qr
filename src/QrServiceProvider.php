@@ -15,6 +15,7 @@ class QrServiceProvider extends PackageServiceProvider
     {
         $package
             ->name(static::$name)
+            ->hasTranslations()
             ->hasViews();
     }
 

@@ -14,7 +14,7 @@
     @if($downloadable)
         <div class="flex items-center gap-4">
             <x-filament::button
-                    :tooltip="__('Download as a PNG image')"
+                    :tooltip="__('Download as a PNG')"
                     color="info"
                     size="sm"
                     icon="heroicon-o-arrow-down-tray"
@@ -23,7 +23,7 @@
                 {{ __('png') }}
             </x-filament::button>
             <x-filament::button
-                    :tooltip="__('Download as a SVG image')"
+                    :tooltip="__('Download as an SVG')"
                     color="info"
                     size="sm"
                     icon="heroicon-o-arrow-down-tray"

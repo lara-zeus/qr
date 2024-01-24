@@ -75,13 +75,11 @@ class Qr extends Facade
                                 ]),
 
                             ColorPicker::make('color')
-                                ->live()
                                 ->default('rgba(74, 74, 74, 1)')
                                 ->label(__('Color'))
                                 ->rgba(),
 
                             ColorPicker::make('back_color')
-                                ->live()
                                 ->default('rgba(252, 252, 252, 1)')
                                 ->label(__('Back Color'))
                                 ->rgba(),
@@ -109,14 +107,12 @@ class Qr extends Facade
                             Grid::make()
                                 ->schema([
                                     ColorPicker::make('gradient_form')
-                                        ->live()
                                         ->default('rgba(69, 179, 157, 1)')
                                         ->label(__('Gradient From'))
                                         ->rgb(),
 
                                     ColorPicker::make('gradient_to')
                                         ->default('rgba(241, 148, 138, 1)')
-                                        ->live()
                                         ->label(__('Gradient To'))
                                         ->rgb(),
 
@@ -148,13 +144,11 @@ class Qr extends Facade
                             Grid::make()
                                 ->schema([
                                     ColorPicker::make('eye_color_inner')
-                                        ->live()
                                         ->default('rgb(241, 148, 138)')
                                         ->label(__('Inner Eye Color'))
                                         ->rgb(),
 
                                     ColorPicker::make('eye_color_outer')
-                                        ->live()
                                         ->default('rgb(69, 179, 157)')
                                         ->label(__('Outer Eye Color'))
                                         ->rgb(),
@@ -176,6 +170,7 @@ class Qr extends Facade
                         ]),
 
                     Placeholder::make('preview')
+                        ->label(__('Preview'))
                         ->columns(['sm' => 2])
                         ->columnSpan(['sm' => 2, 'lg' => 1])
                         ->key('preview_placeholder')

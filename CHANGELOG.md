@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.8 - 2024-02-09
+
+### What's Changed
+
+* fix defualt gradient value by @atmonshi in https://github.com/lara-zeus/qr/pull/16
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.7...1.1.8
+
 ## 1.1.7 - 2024-02-05
 
 ### What's Changed

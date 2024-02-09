@@ -110,13 +110,13 @@ class Qr extends Facade
                                 ->schema([
                                     ColorPicker::make('gradient_form')
                                         ->live()
-                                        ->default('rgba(69, 179, 157, 1)')
+                                        ->default('rgb(69, 179, 157)')
                                         ->label(__('Gradient From'))
                                         ->rgb(),
 
                                     ColorPicker::make('gradient_to')
                                         ->live()
-                                        ->default('rgba(241, 148, 138, 1)')
+                                        ->default('rgb(241, 148, 138)')
                                         ->label(__('Gradient To'))
                                         ->rgb(),
 

@@ -20,10 +20,20 @@ class ColorManager
         $getColor = filled($options[$optionKey]) ? $options[$optionKey] : Qr::getDefaultOptions()[$optionKey];
 
         if (str($getColor)->startsWith('rgba')) {
-            $getColorArray = static::formatColor(Rgba::fromString($getColor));
+            try {
+                $rgbaColor = Rgba::fromString($getColor);
+            } catch (\Exception) {
+                $rgbaColor = Rgba::fromString(Qr::getDefaultOptions()[$optionKey]);
+            }
+            $getColorArray = static::formatColor($rgbaColor);
             $getColorArray[3] = $getColorArray[3] * 100;
         } else {
-            $getColorArray = static::formatColor(Rgb::fromString($getColor));
+            try {
+                $rgbColor = Rgb::fromString($getColor);
+            } catch (\Exception) {
+                $rgbColor = Rgb::fromString(Qr::getDefaultOptions()[$optionKey]);
+            }
+            $getColorArray = static::formatColor($rgbColor);
         }
 
         return $getColorArray;

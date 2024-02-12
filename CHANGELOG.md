@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.9 - 2024-02-12
+
+### What's Changed
+
+* fix set colors by @atmonshi in https://github.com/lara-zeus/qr/pull/17
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.8...1.1.9
+
 ## 1.1.8 - 2024-02-09
 
 ### What's Changed

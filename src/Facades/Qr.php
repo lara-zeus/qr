@@ -48,6 +48,7 @@ class Qr extends Facade
     ): array {
         return [
             TextInput::make($statePath)
+                ->live(onBlur: true)
                 ->formatStateUsing(fn () => $defaultUrl)
                 ->visible($showUrl),
 

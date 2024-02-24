@@ -40,16 +40,19 @@ class Qr extends Facade
         ];
     }
 
-    public static function getFormSchema(string $statePath, string $optionsStatePath, bool $showUrl = true): array
-    {
+    public static function getFormSchema(
+        string $statePath,
+        string $optionsStatePath,
+        ?string $defaultUrl = 'https://',
+        bool $showUrl = true
+    ): array {
         return [
             TextInput::make($statePath)
-                //->visible($showUrl) // todo for helen
-                ->default('https://'),
+                ->formatStateUsing(fn () => $defaultUrl)
+                ->visible($showUrl),
 
             Grid::make()
                 ->schema([
-
                     Section::make()
                         ->id('main-card')
                         ->columns(['sm' => 2])
@@ -59,6 +62,7 @@ class Qr extends Facade
                             TextInput::make('size')
                                 ->live()
                                 ->default(300)
+                                ->numeric()
                                 ->label(__('Size')),
 
                             Select::make('margin')
@@ -207,7 +211,7 @@ class Qr extends Facade
             ColorManager::getColorAsArray($options, 'back_color')
         );
 
-        $maker = $maker->size($options['size'] ?? static::getDefaultOptions()['size']);
+        $maker = $maker->size(filled($options['size']) ? $options['size'] : static::getDefaultOptions()['size']);
 
         if ($options['hasGradient']) {
             if (filled($options['gradient_to']) && filled($options['gradient_form'])) {
@@ -253,7 +257,7 @@ class Qr extends Facade
 
         return new HtmlString(
             // @phpstan-ignore-next-line
-            $maker->format('svg')->generate(($data ?? 'https://'))->toHtml()
+            $maker->format('svg')->generate((filled($data) ? $data : 'https://'))->toHtml()
         );
     }
 

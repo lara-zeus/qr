@@ -59,6 +59,7 @@ class Qr extends Facade
                             TextInput::make('size')
                                 ->live()
                                 ->default(300)
+                                ->numeric()
                                 ->label(__('Size')),
 
                             Select::make('margin')
@@ -207,7 +208,7 @@ class Qr extends Facade
             ColorManager::getColorAsArray($options, 'back_color')
         );
 
-        $maker = $maker->size($options['size'] ?? static::getDefaultOptions()['size']);
+        $maker = $maker->size(! empty($options['size']) ? $options['size'] : static::getDefaultOptions()['size']);
 
         if ($options['hasGradient']) {
             if (filled($options['gradient_to']) && filled($options['gradient_form'])) {

@@ -2,6 +2,19 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.10 - 2024-02-24
+
+### What's Changed
+
+* Change the type of the input text `size` to numeric and check if the size is empty, return the default size by @waelkhalifa in https://github.com/lara-zeus/qr/pull/19
+* making data input live onBlur by @atmonshi in https://github.com/lara-zeus/qr/pull/20
+
+### New Contributors
+
+* @waelkhalifa made their first contribution in https://github.com/lara-zeus/qr/pull/19
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.9...1.1.10
+
 ## 1.1.9 - 2024-02-12
 
 ### What's Changed

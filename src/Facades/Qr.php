@@ -40,12 +40,15 @@ class Qr extends Facade
         ];
     }
 
-    public static function getFormSchema(string $statePath, string $optionsStatePath, bool $showUrl = true): array
+    public static function getFormSchema(string $statePath,
+        string $optionsStatePath,
+        ?string $defaultUrl = 'https://',
+        bool $showUrl = true): array
     {
         return [
             TextInput::make($statePath)
-                //->visible($showUrl) // todo for helen
-                ->default('https://'),
+                ->visible($showUrl) // todo for helen
+                ->default($defaultUrl),
 
             Grid::make()
                 ->schema([

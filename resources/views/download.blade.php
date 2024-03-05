@@ -7,7 +7,7 @@
         state: '{{ $statePath }}',
     })"
 >
-    <div class="flex flex-col justify-center items-center">
+    <div class="flex flex-col justify-center items-center" x-ref="qr">
         {{ \LaraZeus\Qr\Facades\Qr::output($data,$options) }}
     </div>
 

@@ -12,27 +12,27 @@ export default function qrPlugin(
     init: function() {
       //
     },
+
+    download: function(fileName, downType) {
+      var node = this.$refs.qr
+
+      if (downType === 'svg') {
+        domtoimage.toSvg(node)
+          .then(function(blob) {
+            saveAs(blob, fileName + '.svg')
+          })
+          .catch(function(error) {
+            console.error('oops, something went wrong!', error)
+          })
+      } else {
+        domtoimage.toPng(node)
+          .then(function(blob) {
+            saveAs(blob, fileName + '.png')
+          })
+          .catch(function(error) {
+            console.error('oops, something went wrong!', error)
+          })
+      }
+    }
   }
 };
-
-window.download = function(fileName, downType) {
-  var node = document.querySelector('.' + fileName + ' svg')
-
-  if (downType === 'svg') {
-    domtoimage.toSvg(node)
-      .then(function(blob) {
-        saveAs(blob, fileName + '.svg')
-      })
-      .catch(function(error) {
-        console.error('oops, something went wrong!', error)
-      })
-  } else {
-    domtoimage.toPng(node)
-      .then(function(blob) {
-        saveAs(blob, fileName + '.png')
-      })
-      .catch(function(error) {
-        console.error('oops, something went wrong!', error)
-      })
-  }
-}

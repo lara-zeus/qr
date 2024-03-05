@@ -2,6 +2,19 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.11 - 2024-03-05
+
+### What's Changed
+
+* Bump ramsey/composer-install from 2 to 3 by @dependabot in https://github.com/lara-zeus/qr/pull/21
+* Improving Download Action by @dbpolito in https://github.com/lara-zeus/qr/pull/22
+
+### New Contributors
+
+* @dbpolito made their first contribution in https://github.com/lara-zeus/qr/pull/22
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.10...1.1.11
+
 ## 1.1.10 - 2024-02-24
 
 ### What's Changed

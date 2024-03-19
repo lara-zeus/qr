@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://larazeus.com"><img src="https://larazeus.com/images/qr-banner.png?v=1" /></a>
+<a href="https://larazeus.com"><img src="https://larazeus.com/images/lara-zeus-qr.png?v=1" /></a>
 </p>
 
 <h4 align="center">Lara-zeus Qr Code Input to generate Qr Code with designing options.</h4>

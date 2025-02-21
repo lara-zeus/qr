@@ -25,9 +25,9 @@ class Qr extends Facade
         return 'qr';
     }
 
-    public static function getDefaultOptions(): array
+    public static function getDefaultOptions(array $options = []): array
     {
-        return [
+        return array_merge([
             'size' => '300',
             'type' => 'png',
             'margin' => '1',
@@ -48,7 +48,7 @@ class Qr extends Facade
                 'disk' => 'public',
                 'directory' => null,
             ],
-        ];
+        ], $options);
     }
 
     public static function getFormSchema(

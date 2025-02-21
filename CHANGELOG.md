@@ -2,6 +2,20 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.18 - 2025-02-21
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/lara-zeus/qr/pull/40
+* Bump aglipanci/laravel-pint-action from 2.4 to 2.5 by @dependabot in https://github.com/lara-zeus/qr/pull/41
+* Allow passing option overrides in getDefaultOptions by @sprtk-ches in https://github.com/lara-zeus/qr/pull/42
+
+### New Contributors
+
+* @sprtk-ches made their first contribution in https://github.com/lara-zeus/qr/pull/42
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.17...1.1.18
+
 ## 1.1.17 - 2024-12-22
 
 ### What's Changed

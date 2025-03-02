@@ -1,8 +1,8 @@
 <div
     class="flex flex-col gap-2 items-center justify-center"
     x-ignore
-    ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('qr','lara-zeus/qr') }}"
-    ax-load
+    x-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('qr','lara-zeus/qr') }}"
+    x-load
     x-data="qrPlugin({
         state: '{{ $statePath }}',
     })"

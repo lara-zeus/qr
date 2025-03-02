@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.19 - 2025-03-02
+
+### What's Changed
+
+* update ax-load by @atmonshi in https://github.com/lara-zeus/qr/pull/43
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.18...1.1.19
+
 ## 1.1.18 - 2025-02-21
 
 ### What's Changed

@@ -16,7 +16,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
-use SimpleSoftwareIO\QrCode\Generator;
+use LaraZeus\QrCode\Generator;
 
 class Qr extends Facade
 {
@@ -328,7 +328,6 @@ class Qr extends Facade
         }
 
         return new HtmlString(
-            // @phpstan-ignore-next-line
             $maker->format(optional($options)['type'] ?? 'png')
                 ->generate((filled($data) ? $data : 'https://'))
                 ->toHtml()

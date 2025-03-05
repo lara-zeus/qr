@@ -328,7 +328,6 @@ class Qr extends Facade
         }
 
         return new HtmlString(
-            // @phpstan-ignore-next-line
             $maker->format(optional($options)['type'] ?? 'png')
                 ->generate((filled($data) ? $data : 'https://'))
                 ->toHtml()

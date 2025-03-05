@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.2.0 - 2025-03-05
+
+### What's Changed
+
+* bump simple-qrcode by @atmonshi in https://github.com/lara-zeus/qr/pull/44
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.19...1.2.0
+
 ## 1.1.19 - 2025-03-02
 
 ### What's Changed

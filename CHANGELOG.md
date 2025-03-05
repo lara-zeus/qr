@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.2.1 - 2025-03-05
+
+### What's Changed
+
+* fix namespace by @atmonshi in https://github.com/lara-zeus/qr/pull/45
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.2.0...1.2.1
+
 ## 1.2.0 - 2025-03-05
 
 ### What's Changed

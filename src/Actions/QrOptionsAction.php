@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Qr\Actions;
 
-use Closure;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -15,20 +14,6 @@ class QrOptionsAction extends Action
     public string $parentState = 'url';
 
     public string $optionsColumn = 'options';
-
-    public ?Closure $configureActionUsing;
-
-    public static function make(?string $name = null): static
-    {
-        $make = parent::make($name);
-
-        // todo, getting $configureActionUsing must not be accessed before initialization
-        /*$make->configureUsing(function ($make){
-            return $make->getActionConfig();
-        });*/
-
-        return $make;
-    }
 
     protected function setUp(): void
     {
@@ -101,18 +86,6 @@ class QrOptionsAction extends Action
     public function getParentState(): string
     {
         return $this->evaluate($this->parentState ?? 'url');
-    }
-
-    public function configureActionUsing(Closure $callback): static
-    {
-        $this->configureActionUsing = $callback;
-
-        return $this;
-    }
-
-    public function getActionConfig(): ?Closure
-    {
-        return $this->configureActionUsing;
     }
 
     public function optionsColumn(string $column = 'options'): static

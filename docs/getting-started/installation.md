@@ -65,7 +65,11 @@ use it in your resource
     // set the icon for the QR action
     ->actionIcon('heroicon-s-building-library')
     
-    // more options soon
+    // to customize the upload disk
+    ->uploadDisk('public')
+   
+    // to customize the upload directory
+    ->uploadDirectory('qr-dir')
     ,
 ```
 

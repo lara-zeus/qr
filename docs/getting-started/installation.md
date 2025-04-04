@@ -11,6 +11,14 @@ Install @zeus Qr by running the following commands in your Laravel project direc
 composer require lara-zeus/qr
 ```
 
+## Translations
+
+Optionally, to publish the translation, run the command:
+
+```bash
+php artisan vendor:publish --tag=zeus-qr-translations
+```
+
 ## Migration
 
 Make sure to edit your resource migration to add the required columns.  

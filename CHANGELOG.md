@@ -2,6 +2,23 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.2.2 - 2025-04-04
+
+### What's Changed
+
+* allow to configure the upload disk and directory by @atmonshi in https://github.com/lara-zeus/qr/pull/48
+
+```php
+\LaraZeus\Qr\Components\Qr::make('qr_code')
+    // to customize the upload disk
+    ->uploadDisk('public')
+   
+    // to customize the upload directory
+    ->uploadDirectory('qr-dir'),
+
+```
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.2.1...1.2.2
+
 ## 1.2.1 - 2025-03-05
 
 ### What's Changed

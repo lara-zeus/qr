@@ -9,7 +9,7 @@
 >
     <div class="flex flex-col justify-center items-center" x-ref="qr">
         @if(optional($options)['type'] === 'png')
-            <img src="data:png;base64,{{ base64_encode(\LaraZeus\Qr\Facades\Qr::output($data,$options)) }}"/>
+            <img alt="" src="data:png;base64,{{ base64_encode(\LaraZeus\Qr\Facades\Qr::output($data,$options)) }}" />
         @else
             {{ \LaraZeus\Qr\Facades\Qr::output($data,$options) }}
         @endif
@@ -18,20 +18,20 @@
     @if($downloadable)
         <div class="flex items-center gap-4">
             <x-filament::button
-                    :tooltip="__('Download as a PNG')"
-                    color="info"
-                    size="sm"
-                    icon="heroicon-o-arrow-down-tray"
-                    @click="download('{{ $statePath }}','png');"
+                :tooltip="__('Download as a PNG')"
+                color="info"
+                size="sm"
+                icon="heroicon-o-arrow-down-tray"
+                @click="download('{{ $statePath }}','png');"
             >
                 {{ __('png') }}
             </x-filament::button>
             <x-filament::button
-                    :tooltip="__('Download as an SVG')"
-                    color="info"
-                    size="sm"
-                    icon="heroicon-o-arrow-down-tray"
-                    @click="download('{{ $statePath }}','svg');"
+                :tooltip="__('Download as an SVG')"
+                color="info"
+                size="sm"
+                icon="heroicon-o-arrow-down-tray"
+                @click="download('{{ $statePath }}','svg');"
             >
                 {{ __('svg') }}
             </x-filament::button>

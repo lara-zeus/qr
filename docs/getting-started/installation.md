@@ -26,11 +26,9 @@ The main one will be the same as your component; in the example below, it is set
 If you want to store the personalization, another column is required; in the example, it is `options`.
 
 ```php
- Schema::create('ticket_replies', function (Blueprint $table) {
-    // other columns   
-    $table->string('qr_code');
-    $table->text('options');
-    // other columns
+ Schema::create('links', function (Blueprint $table) {
+    $table->string('qr_url');
+    $table->text('qr_options');
 });
 ```
 
@@ -44,7 +42,7 @@ class QrCode extends Model
     use HasFactory;
 
     protected $casts = [
-        'options' => 'array'
+        'qr_options' => 'array'
     ];
 }
 ```
@@ -73,7 +71,7 @@ use it in your resource
     ,
 ```
 
-## Render the QR Code.
+## Render the QR Code:
 
 you can render the QR code in any component that accept HTML using the QR Facade:
 
@@ -131,12 +129,4 @@ Action::make('qr-action')
     ])
     ->form(\LaraZeus\Qr\Facades\Qr::getFormSchema('qr-data', 'qr-options'))
     ->action(fn($data) => dd($data)),
-```
-
-### upload configuration:
-
-to customize the upload disk and directory pass the param:
-
-```php
-\LaraZeus\Qr\Facades\Qr::getFormSchema('qr-data', 'qr-options', uploadOptions: ['disk','/qr-code-logos'])
 ```

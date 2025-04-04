@@ -2,8 +2,6 @@
 
 namespace LaraZeus\Qr\Components;
 
-use Closure;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Concerns\HasName;
 use Filament\Forms\Components\Hidden;
@@ -14,7 +12,9 @@ class Qr extends Component
 {
     use HasName;
 
-    public ?Closure $configureActionUsing = null;
+    public string $uploadDisk = 'public';
+
+    public ?string $uploadDirectory = null;
 
     public string $optionsColumn = 'options';
 
@@ -59,26 +59,10 @@ class Qr extends Component
                             ->icon(fn () => $this->getActionIcon())
                             ->parentState($getName)
                             ->optionsColumn($getOptionsColumn)
-                        /*->configureActionUsing(function (QrOptionsAction $action) {
-                            return $this->getConfigureActionUsing($action);
-                        })*/
+                            ->uploadOptions($this->getUploadDisk(), $this->getUploadDisk())
                     ),
             ];
         });
-    }
-
-    public function configureActionUsing(?Closure $callback): static
-    {
-        $this->configureActionUsing = $callback;
-
-        return $this;
-    }
-
-    public function getConfigureActionUsing(Action $action): ?Closure
-    {
-        return $this->evaluate($this->configureActionUsing, [
-            'action' => $action,
-        ]);
     }
 
     public function optionsColumn(string $column = 'options'): static
@@ -93,9 +77,9 @@ class Qr extends Component
         return $this->optionsColumn ?? 'options';
     }
 
-    public function asSlideOver(bool $condetion = true): static
+    public function asSlideOver(bool $condition = true): static
     {
-        $this->asSlideOver = $condetion;
+        $this->asSlideOver = $condition;
 
         return $this;
     }
@@ -115,5 +99,29 @@ class Qr extends Component
     public function getActionIcon(): string
     {
         return $this->actionIcon;
+    }
+
+    public function uploadDisk(string $disk = 'public'): static
+    {
+        $this->uploadDisk = $disk;
+
+        return $this;
+    }
+
+    public function getUploadDisk(): string
+    {
+        return $this->uploadDisk;
+    }
+
+    public function uploadDirectory(?string $dir = null): static
+    {
+        $this->uploadDirectory = $dir;
+
+        return $this;
+    }
+
+    public function getUploadDirectory(): string
+    {
+        return $this->uploadDirectory;
     }
 }

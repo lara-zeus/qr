@@ -4,14 +4,14 @@ namespace LaraZeus\Qr\Facades;
 
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Storage;

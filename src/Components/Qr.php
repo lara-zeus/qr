@@ -2,10 +2,10 @@
 
 namespace LaraZeus\Qr\Components;
 
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Concerns\HasName;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Component;
 use LaraZeus\Qr\Actions\QrOptionsAction;
 
 class Qr extends Component
@@ -22,7 +22,7 @@ class Qr extends Component
 
     public string $actionIcon = 'heroicon-o-qr-code';
 
-    protected string $view = 'filament-forms::components.grid';
+    protected string $view = 'filament-schemas::components.grid';
 
     public function __construct(string $name)
     {

@@ -65,6 +65,7 @@ class Qr extends Facade
                 ->visible($showUrl),
 
             Grid::make()
+                ->columnSpanFull()
                 ->schema([
                     Section::make()
                         ->id('main-card')

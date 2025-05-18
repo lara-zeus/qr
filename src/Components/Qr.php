@@ -2,10 +2,10 @@
 
 namespace LaraZeus\Qr\Components;
 
-use Filament\Forms\Components\Concerns\HasName;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Component;
+use Filament\Schemas\Components\Concerns\HasName;
 use LaraZeus\Qr\Actions\QrOptionsAction;
 
 class Qr extends Component

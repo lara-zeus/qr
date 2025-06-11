@@ -2,16 +2,13 @@
 
 namespace LaraZeus\Qr\Components;
 
+use Filament\Forms\Components\Field;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Component;
-use Filament\Schemas\Components\Concerns\HasName;
 use LaraZeus\Qr\Actions\QrOptionsAction;
 
-class Qr extends Component
+class Qr extends Field
 {
-    use HasName;
-
     public string $uploadDisk = 'public';
 
     public ?string $uploadDirectory = null;
@@ -24,45 +21,31 @@ class Qr extends Component
 
     protected string $view = 'filament-schemas::components.grid';
 
-    public function __construct(string $name)
-    {
-        $this->name($name);
-    }
-
-    public static function make(string $name): static
-    {
-        $static = app(static::class, ['name' => $name]);
-
-        $static->configure();
-
-        return $static;
-    }
-
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->schema(function () {
+        $this
+            ->schema(function () {
+                $getName = $this->getName();
+                $getOptionsColumn = $this->getOptionsColumn();
 
-            $getName = $this->getName();
-            $getOptionsColumn = $this->getOptionsColumn();
+                return [
+                    Hidden::make($getOptionsColumn),
 
-            return [
-                Hidden::make($getOptionsColumn),
-
-                TextInput::make($getName)
-                    ->live()
-                    ->default('https://')
-                    ->suffixAction(
-                        QrOptionsAction::make('qr-code-design')
-                            ->slideOver(fn () => $this->isAsSlideOver())
-                            ->icon(fn () => $this->getActionIcon())
-                            ->parentState($getName)
-                            ->optionsColumn($getOptionsColumn)
-                            ->uploadOptions($this->getUploadDisk(), $this->getUploadDisk())
-                    ),
-            ];
-        });
+                    TextInput::make($getName)
+                        ->live()
+                        ->default('https://')
+                        ->suffixAction(
+                            QrOptionsAction::make('qr-code-design')
+                                ->slideOver(fn() => $this->isAsSlideOver())
+                                ->icon(fn() => $this->getActionIcon())
+                                ->parentState($getName)
+                                ->optionsColumn($getOptionsColumn)
+                                ->uploadOptions($this->getUploadDisk(), $this->getUploadDisk())
+                        ),
+                ];
+            });
     }
 
     public function optionsColumn(string $column = 'options'): static

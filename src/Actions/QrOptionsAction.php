@@ -30,7 +30,7 @@ class QrOptionsAction extends Action
             ];
         });
 
-        $this->form(fn () => Qr::getFormSchema(
+        $this->schema(fn () => Qr::getFormSchema(
             statePath: $this->getParentState(),
             optionsStatePath: $this->getOptionsColumn(),
             uploadOptions: $this->getUploadOptions()

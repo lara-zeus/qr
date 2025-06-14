@@ -38,8 +38,8 @@ class Qr extends Field
                         ->default('https://')
                         ->suffixAction(
                             QrOptionsAction::make('qr-code-design')
-                                ->slideOver(fn() => $this->isAsSlideOver())
-                                ->icon(fn() => $this->getActionIcon())
+                                ->slideOver(fn () => $this->isAsSlideOver())
+                                ->icon(fn () => $this->getActionIcon())
                                 ->parentState($getName)
                                 ->optionsColumn($getOptionsColumn)
                                 ->uploadOptions($this->getUploadDisk(), $this->getUploadDisk())

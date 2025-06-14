@@ -22,7 +22,7 @@
                 color="info"
                 size="sm"
                 icon="heroicon-o-arrow-down-tray"
-                @click="download('{{ $statePath }}','png');"
+                @click="download('{{ $fileName ?? $statePath }}','png');"
             >
                 {{ __('png') }}
             </x-filament::button>
@@ -31,7 +31,7 @@
                 color="info"
                 size="sm"
                 icon="heroicon-o-arrow-down-tray"
-                @click="download('{{ $statePath }}','svg');"
+                @click="download('{{ $fileName ?? $statePath }}','svg');"
             >
                 {{ __('svg') }}
             </x-filament::button>

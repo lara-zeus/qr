@@ -56,7 +56,8 @@ class Qr extends Facade
         string $optionsStatePath,
         ?string $defaultUrl = 'https://',
         bool $showUrl = true,
-        array $uploadOptions = []
+        array $uploadOptions = [],
+        ?string $fileName = null
     ): array {
         return [
             TextInput::make($statePath)
@@ -237,7 +238,8 @@ class Qr extends Facade
                             data: $get($statePath),
                             options: $get($optionsStatePath),
                             statePath: $statePath,
-                            optionsStatePath: $optionsStatePath
+                            optionsStatePath: $optionsStatePath,
+                            fileName: $fileName
                         )),
                 ]),
         ];
@@ -339,12 +341,14 @@ class Qr extends Facade
         ?array $options = null,
         string $statePath = 'url',
         string $optionsStatePath = 'options',
-        bool $downloadable = true
+        bool $downloadable = true,
+        ?string $fileName = null
     ): HtmlString {
         return new HtmlString(
             view('zeus-qr::download', [
                 'optionsStatePath' => $optionsStatePath,
                 'statePath' => $statePath,
+                'fileName' => $fileName,
                 'data' => $data,
                 'options' => $options ?? Qr::getDefaultOptions(),
                 'downloadable' => $downloadable,

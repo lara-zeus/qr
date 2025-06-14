@@ -24,6 +24,8 @@ class Qr extends Component
 
     protected string $view = 'filament-forms::components.grid';
 
+    public ?string $fileName;
+
     public function __construct(string $name)
     {
         $this->name($name);
@@ -58,6 +60,7 @@ class Qr extends Component
                             ->slideOver(fn () => $this->isAsSlideOver())
                             ->icon(fn () => $this->getActionIcon())
                             ->parentState($getName)
+                            ->fileName($this->getFileName())
                             ->optionsColumn($getOptionsColumn)
                             ->uploadOptions($this->getUploadDisk(), $this->getUploadDisk())
                     ),
@@ -123,5 +126,17 @@ class Qr extends Component
     public function getUploadDirectory(): string
     {
         return $this->uploadDirectory;
+    }
+
+    public function fileName(?string $name = null): static
+    {
+        $this->fileName = $name;
+
+        return $this;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
     }
 }

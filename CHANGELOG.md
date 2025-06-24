@@ -2,6 +2,15 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.2.4 - 2025-06-24
+
+### What's Changed
+
+* fix missing options and nullable file name by @atmonshi in https://github.com/lara-zeus/qr/pull/53
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot in https://github.com/lara-zeus/qr/pull/52
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.2.3...1.2.4
+
 ## 1.2.3 - 2025-06-14
 
 ### What's Changed
@@ -23,6 +32,7 @@ All notable changes to `Qr` will be documented in this file
    
     // to customize the upload directory
     ->uploadDirectory('qr-dir'),
+
 
 
 ```

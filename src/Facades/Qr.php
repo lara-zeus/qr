@@ -252,7 +252,7 @@ class Qr extends Facade
         $maker = new Generator;
         $size = 0.2;
 
-        $options = $options ?? Qr::getDefaultOptions();
+        $options = array_merge(Qr::getDefaultOptions(), $options);
 
         call_user_func_array(
             [$maker, 'color'],

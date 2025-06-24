@@ -23,20 +23,6 @@ class Qr extends Field
 
     public ?string $fileName;
 
-/*    public function __construct(string $name)
-    {
-        $this->name($name);
-    }
-
-    public static function make(string $name): static
-    {
-        $static = app(static::class, ['name' => $name]);
-
-        $static->configure();
-
-        return $static;
-    }*/
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -45,7 +31,6 @@ class Qr extends Field
             ->schema(function () {
                 $getName = $this->getName();
                 $getOptionsColumn = $this->getOptionsColumn();
-
                 return [
                     Hidden::make($getOptionsColumn),
 

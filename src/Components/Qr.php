@@ -24,7 +24,7 @@ class Qr extends Component
 
     protected string $view = 'filament-forms::components.grid';
 
-    public ?string $fileName;
+    public string $fileName = 'download';
 
     public function __construct(string $name)
     {
@@ -128,14 +128,14 @@ class Qr extends Component
         return $this->uploadDirectory;
     }
 
-    public function fileName(?string $name = null): static
+    public function fileName(string $name): static
     {
         $this->fileName = $name;
 
         return $this;
     }
 
-    public function getFileName(): ?string
+    public function getFileName(): string
     {
         return $this->fileName;
     }

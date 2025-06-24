@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.2.3 - 2025-06-14
+
+### What's Changed
+
+* customize file name for downloaded QR by @atmonshi in https://github.com/lara-zeus/qr/pull/51
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/2.0.0...1.2.3
+
 ## 1.2.2 - 2025-04-04
 
 ### What's Changed
@@ -15,6 +23,7 @@ All notable changes to `Qr` will be documented in this file
    
     // to customize the upload directory
     ->uploadDirectory('qr-dir'),
+
 
 ```
 **Full Changelog**: https://github.com/lara-zeus/qr/compare/1.2.1...1.2.2

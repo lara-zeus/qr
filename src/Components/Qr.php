@@ -21,6 +21,22 @@ class Qr extends Field
 
     protected string $view = 'filament-schemas::components.grid';
 
+    public ?string $fileName;
+
+/*    public function __construct(string $name)
+    {
+        $this->name($name);
+    }
+
+    public static function make(string $name): static
+    {
+        $static = app(static::class, ['name' => $name]);
+
+        $static->configure();
+
+        return $static;
+    }*/
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -106,5 +122,17 @@ class Qr extends Field
     public function getUploadDirectory(): string
     {
         return $this->uploadDirectory;
+    }
+
+    public function fileName(?string $name = null): static
+    {
+        $this->fileName = $name;
+
+        return $this;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
     }
 }

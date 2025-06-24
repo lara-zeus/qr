@@ -21,7 +21,7 @@
                 :tooltip="__('Download as a PNG')"
                 size="sm"
                 icon="heroicon-o-arrow-down-tray"
-                @click="download('{{ $statePath }}','png');"
+                @click="download('{{ $fileName ?? $statePath }}','png');"
             >
                 {{ __('png') }}
             </x-filament::button>
@@ -29,7 +29,7 @@
                 :tooltip="__('Download as an SVG')"
                 size="sm"
                 icon="heroicon-o-arrow-down-tray"
-                @click="download('{{ $statePath }}','svg');"
+                @click="download('{{ $fileName ?? $statePath }}','svg');"
             >
                 {{ __('svg') }}
             </x-filament::button>

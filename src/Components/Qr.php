@@ -21,6 +21,8 @@ class Qr extends Field
 
     protected string $view = 'filament-schemas::components.grid';
 
+    public string $fileName = 'download';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -106,5 +108,17 @@ class Qr extends Field
     public function getUploadDirectory(): string
     {
         return $this->uploadDirectory;
+    }
+
+    public function fileName(string $name): static
+    {
+        $this->fileName = $name;
+
+        return $this;
+    }
+
+    public function getFileName(): string
+    {
+        return $this->fileName;
     }
 }

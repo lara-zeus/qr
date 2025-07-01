@@ -15,6 +15,8 @@ class QrOptionsAction extends Action
 
     public string $optionsColumn = 'options';
 
+    public ?string $fileName = null;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -33,7 +35,8 @@ class QrOptionsAction extends Action
         $this->schema(fn () => Qr::getFormSchema(
             statePath: $this->getParentState(),
             optionsStatePath: $this->getOptionsColumn(),
-            uploadOptions: $this->getUploadOptions()
+            uploadOptions: $this->getUploadOptions(),
+            fileName: $this->getFileName()
         ));
 
         $this->action(function (Set $set, $data) {
@@ -98,5 +101,17 @@ class QrOptionsAction extends Action
     public function getOptionsColumn(): string
     {
         return $this->optionsColumn ?? 'options';
+    }
+
+    public function fileName(?string $name = null): static
+    {
+        $this->fileName = $name;
+
+        return $this;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
     }
 }

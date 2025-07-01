@@ -31,6 +31,7 @@ class Qr extends Field
             ->schema(function () {
                 $getName = $this->getName();
                 $getOptionsColumn = $this->getOptionsColumn();
+
                 return [
                     Hidden::make($getOptionsColumn),
 

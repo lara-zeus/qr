@@ -2,6 +2,18 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.2.5 - 2025-07-22
+
+### What's Changed
+
+* add translation es by @AnderssonGt in https://github.com/lara-zeus/qr/pull/55
+
+### New Contributors
+
+* @AnderssonGt made their first contribution in https://github.com/lara-zeus/qr/pull/55
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.2.4...1.2.5
+
 ## 1.2.4 - 2025-06-24
 
 ### What's Changed
@@ -32,6 +44,7 @@ All notable changes to `Qr` will be documented in this file
    
     // to customize the upload directory
     ->uploadDirectory('qr-dir'),
+
 
 
 

@@ -313,7 +313,12 @@ class Qr extends Facade
 
         if (optional($options)['logo']) {
             
-            $logo = $options['logo'];
+            if(is_array($options['logo'])) {
+                reset($options['logo']);
+                $logo = current($options['logo']);
+            } else {
+                $logo = $options['logo'];
+            }
 
             if ($logo instanceof UploadedFile && filled($logo->getPathName())) {
                 $maker = $maker->merge($logo->getPathName(), $size, true);

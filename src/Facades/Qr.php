@@ -313,7 +313,7 @@ class Qr extends Facade
         }
 
         if (optional($options)['logo']) {
-            if(is_array($options['logo'])) {
+            if (is_array($options['logo'])) {
                 reset($options['logo']);
                 $logo = current($options['logo']);
             } else {

@@ -313,8 +313,12 @@ class Qr extends Facade
         }
 
         if (optional($options)['logo']) {
-            reset($options['logo']);
-            $logo = current($options['logo']);
+            if (is_array($options['logo'])) {
+                reset($options['logo']);
+                $logo = current($options['logo']);
+            } else {
+                $logo = $options['logo'];
+            }
 
             if ($logo instanceof UploadedFile && filled($logo->getPathName())) {
                 $maker = $maker->merge($logo->getPathName(), $size, true);
@@ -322,7 +326,7 @@ class Qr extends Facade
                 $disk = optional($options)['uploadOptions']['disk'] ?? 'public';
                 if (Storage::disk($disk)->exists($logo)) {
                     $maker = $maker->merge(
-                        Storage::disk($disk)->url($logo),
+                        Storage::disk($disk)->path($logo),
                         $size,
                         true
                     );

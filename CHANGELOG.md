@@ -2,6 +2,20 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 3.0.0 - 2026-03-10
+
+### What's Changed
+
+* add translation es by @AnderssonGt in https://github.com/lara-zeus/qr/pull/55
+* Bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/lara-zeus/qr/pull/56
+* Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/lara-zeus/qr/pull/61
+
+### New Contributors
+
+* @AnderssonGt made their first contribution in https://github.com/lara-zeus/qr/pull/55
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/2.0.1...3.0.0
+
 ## 1.2.5 - 2025-07-22
 
 ### What's Changed
@@ -44,6 +58,7 @@ All notable changes to `Qr` will be documented in this file
    
     // to customize the upload directory
     ->uploadDirectory('qr-dir'),
+
 
 
 

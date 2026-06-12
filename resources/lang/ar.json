@@ -21,5 +21,6 @@
     "Inner Eye Color": "اللون الداخلي",
     "Outer Eye Color": "اللون الخارجي",
     "circle": "داىري",
-    "Preview": "معاينة"
+    "Preview": "معاينة",
+    "svg not supported": "نوع الملف (SVG) غير مدعوم"
 }

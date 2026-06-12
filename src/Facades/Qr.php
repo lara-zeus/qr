@@ -214,6 +214,12 @@ class Qr extends Facade
                                 ->columnSpanFull()
                                 ->disk($uploadOptions['disk'] ?? 'public')
                                 ->directory($uploadOptions['directory'] ?? null)
+                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/gif', 'image/webp'])
+                                ->rules(['mimes:png,jpg,jpeg,gif,webp'])
+                                ->validationMessages([
+                                    'mimes' => __('svg not supported'),
+                                    'mimetypes' => __('svg not supported'),
+                                ])
                                 ->image(),
 
                             Select::make('percentage')
@@ -319,10 +325,12 @@ class Qr extends Facade
             $logo = current($options['logo']);
 
             if ($logo instanceof UploadedFile && filled($logo->getPathName())) {
-                $maker = $maker->merge($logo->getPathName(), $size, true);
+                if (! str($logo->getClientOriginalName())->endsWith('.svg') && $logo->getClientMimeType() !== 'image/svg+xml') {
+                    $maker = $maker->merge($logo->getPathName(), $size, true);
+                }
             } else {
                 $disk = optional($options)['uploadOptions']['disk'] ?? 'public';
-                if (Storage::disk($disk)->exists($logo)) {
+                if (Storage::disk($disk)->exists($logo) && ! str($logo)->endsWith('.svg') && Storage::disk($disk)->mimeType($logo) !== 'image/svg+xml') {
                     $maker = $maker->mergeString(
                         Storage::disk($disk)->get($logo),
                         $size

@@ -21,5 +21,6 @@
     "Inner Eye Color": "定位点内部颜色",
     "Outer Eye Color": "定位点外部颜色",
     "circle": "圆形",
-    "Preview": "预览"
+    "Preview": "预览",
+    "svg not supported": "不支持 SVG"
 }

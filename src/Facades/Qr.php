@@ -250,6 +250,7 @@ class Qr extends Facade
     public static function output(?string $data = null, ?array $options = null): HtmlString
     {
         $maker = new Generator;
+        $maker->encoding('UTF-8');
         $size = 0.2;
 
         $options = array_merge(Qr::getDefaultOptions(), $options);
@@ -321,10 +322,9 @@ class Qr extends Facade
             } else {
                 $disk = optional($options)['uploadOptions']['disk'] ?? 'public';
                 if (Storage::disk($disk)->exists($logo)) {
-                    $maker = $maker->merge(
-                        Storage::disk($disk)->url($logo),
-                        $size,
-                        true
+                    $maker = $maker->mergeString(
+                        Storage::disk($disk)->get($logo),
+                        $size
                     );
                 }
             }

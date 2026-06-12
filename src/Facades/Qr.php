@@ -5,10 +5,10 @@ namespace LaraZeus\Qr\Facades;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -233,15 +233,16 @@ class Qr extends Facade
                                     '.2' => 'M',
                                     '.3' => 'L',
                                     '.4' => 'XL',
-                                ]),
+                                ])
+                                ->in(['.1', '.2', '.3', '.4']),
                         ]),
 
-                    Placeholder::make('preview')
+                    TextEntry::make('preview')
                         ->label(__('Preview'))
                         ->columns(['sm' => 2])
                         ->columnSpan(['sm' => 2, 'lg' => 1])
                         ->key('preview_placeholder')
-                        ->content(fn (Get $get) => Qr::render(
+                        ->state(fn (Get $get) => Qr::render(
                             data: $get($statePath),
                             options: $get($optionsStatePath),
                             statePath: $statePath,

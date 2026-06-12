@@ -2,6 +2,20 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 3.0.1 - 2026-06-12
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/lara-zeus/qr/pull/69
+* chore: align docs structure and cleanup by @atmonshi in https://github.com/lara-zeus/qr/pull/73
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/lara-zeus/qr/pull/66
+* Bump ramsey/composer-install from 3 to 4 by @dependabot[bot] in https://github.com/lara-zeus/qr/pull/67
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/lara-zeus/qr/pull/68
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.1.0 by @dependabot[bot] in https://github.com/lara-zeus/qr/pull/72
+* fix encoding the image by @atmonshi in https://github.com/lara-zeus/qr/pull/74
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/3.0.0...3.0.1
+
 ## 1.2.5 - 2025-07-22
 
 ### What's Changed
@@ -44,6 +58,7 @@ All notable changes to `Qr` will be documented in this file
    
     // to customize the upload directory
     ->uploadDirectory('qr-dir'),
+
 
 
 

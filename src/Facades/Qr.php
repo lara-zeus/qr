@@ -273,53 +273,53 @@ class Qr extends Facade
 
         $maker = $maker->size(filled($options['size']) ? $options['size'] : static::getDefaultOptions()['size']);
 
-        if ($options['hasGradient']) {
-            if (filled($options['gradient_to']) && filled($options['gradient_form'])) {
+        if (isset($options['hasGradient']) && $options['hasGradient']) {
+            if (filled($options['gradient_to'] ?? null) && filled($options['gradient_form'] ?? null)) {
                 $gradient_form = ColorManager::getColorAsArray($options, 'gradient_form');
                 $gradient_to = ColorManager::getColorAsArray($options, 'gradient_to');
 
-                $gradientOptions = array_merge($gradient_to, $gradient_form, [$options['gradient_type']]);
+                $gradientOptions = array_merge($gradient_to, $gradient_form, [$options['gradient_type'] ?? 'vertical']);
                 call_user_func_array([$maker, 'gradient'], $gradientOptions);
             }
         }
 
-        if ($options['hasEyeColor']) {
-            if (filled($options['eye_color_inner']) && filled($options['eye_color_outer'])) {
+        if (isset($options['hasEyeColor']) && $options['hasEyeColor']) {
+            if (filled($options['eye_color_inner'] ?? null) && filled($options['eye_color_outer'] ?? null)) {
                 $eye_color_inner = ColorManager::getColorAsArray($options, 'eye_color_inner');
                 $eye_color_outer = ColorManager::getColorAsArray($options, 'eye_color_outer');
 
-                $eyeColorInnerOptions = array_merge([0], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
+                $eyeColorInnerOptions0 = array_merge([0], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions0);
 
-                $eyeColorInnerOptions = array_merge([1], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
+                $eyeColorInnerOptions1 = array_merge([1], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions1);
 
-                $eyeColorInnerOptions = array_merge([2], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
+                $eyeColorInnerOptions2 = array_merge([2], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions2);
             }
         }
 
-        if (filled($options['margin'])) {
+        if (filled($options['margin'] ?? null)) {
             $maker = $maker->margin($options['margin']);
         }
 
-        if (filled($options['correction'])) {
+        if (filled($options['correction'] ?? null)) {
             $maker = $maker->errorCorrection($options['correction']);
         }
 
-        if (filled($options['percentage'])) {
-            $size = ($options['percentage']);
+        if (filled($options['percentage'] ?? null)) {
+            $size = $options['percentage'];
         }
 
-        if (filled($options['style'])) {
+        if (filled($options['style'] ?? null)) {
             $maker = $maker->style($options['style']);
         }
 
-        if (filled($options['eye_style'])) {
+        if (filled($options['eye_style'] ?? null)) {
             $maker = $maker->eye($options['eye_style']);
         }
 
-        if (optional($options)['logo']) {
+        if (isset($options['logo']) && filled($options['logo'])) {
             reset($options['logo']);
             $logo = current($options['logo']);
 

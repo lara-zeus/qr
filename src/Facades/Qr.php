@@ -253,7 +253,7 @@ class Qr extends Facade
         $maker->encoding('UTF-8');
         $size = 0.2;
 
-        $options = array_merge(Qr::getDefaultOptions(), $options);
+        $options = array_merge(Qr::getDefaultOptions(), $options ?? []);
 
         call_user_func_array(
             [$maker, 'color'],

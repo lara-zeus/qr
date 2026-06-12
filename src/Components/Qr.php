@@ -59,7 +59,7 @@ class Qr extends Field
 
     public function getOptionsColumn(): string
     {
-        return $this->optionsColumn ?? 'options';
+        return $this->optionsColumn;
     }
 
     public function asSlideOver(bool $condition = true): static
@@ -105,7 +105,7 @@ class Qr extends Field
         return $this;
     }
 
-    public function getUploadDirectory(): string
+    public function getUploadDirectory(): ?string
     {
         return $this->uploadDirectory;
     }

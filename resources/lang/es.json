@@ -21,5 +21,6 @@
     "Inner Eye Color": "Color del ojo interno",
     "Outer Eye Color": "Color del ojo externo",
     "circle": "círculo",
-    "Preview": "Vista previa"
+    "Preview": "Vista previa",
+    "svg not supported": "SVG no compatible"
 }

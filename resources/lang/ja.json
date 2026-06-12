@@ -21,5 +21,6 @@
     "Inner Eye Color": "アンカーポイントの内部色",
     "Outer Eye Color": "アンカーポイントの外側の色",
     "circle": "ラウンド",
-    "Preview": "プレビュー"
+    "Preview": "プレビュー",
+    "svg not supported": "SVG はサポートされていません"
 }

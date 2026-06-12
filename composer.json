@@ -34,16 +34,24 @@
         "spatie/laravel-package-tools": "^1.16"
     },
     "require-dev": {
-        "phpstan/extension-installer": "^1.4",
         "larastan/larastan": "^3.0",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^8.6",
         "nunomaduro/phpinsights": "^2.8",
-        "orchestra/testbench": "^10.0"
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^4.7",
+        "pestphp/pest-plugin-laravel": "^4.1",
+        "pestphp/pest-plugin-livewire": "^4.1",
+        "phpstan/extension-installer": "^1.4"
     },
     "autoload": {
         "psr-4": {
             "LaraZeus\\Qr\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaraZeus\\Qr\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -56,7 +64,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "pestphp/pest-plugin": true
         }
     },
     "extra": {

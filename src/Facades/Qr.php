@@ -5,16 +5,17 @@ namespace LaraZeus\Qr\Facades;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\HtmlString;
 use LaraZeus\QrCode\Generator;
 
@@ -213,7 +214,12 @@ class Qr extends Facade
                                 ->columnSpanFull()
                                 ->disk($uploadOptions['disk'] ?? 'public')
                                 ->directory($uploadOptions['directory'] ?? null)
-                                ->image(),
+                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/gif', 'image/webp'])
+                                ->rules(['mimes:png,jpg,jpeg,gif,webp'])
+                                ->validationMessages([
+                                    'mimes' => __('svg not supported'),
+                                    'mimetypes' => __('svg not supported'),
+                                ]),
 
                             Select::make('percentage')
                                 ->live()
@@ -227,15 +233,16 @@ class Qr extends Facade
                                     '.2' => 'M',
                                     '.3' => 'L',
                                     '.4' => 'XL',
-                                ]),
+                                ])
+                                ->in(['.1', '.2', '.3', '.4']),
                         ]),
 
-                    Placeholder::make('preview')
+                    TextEntry::make('preview')
                         ->label(__('Preview'))
                         ->columns(['sm' => 2])
                         ->columnSpan(['sm' => 2, 'lg' => 1])
                         ->key('preview_placeholder')
-                        ->content(fn (Get $get) => Qr::render(
+                        ->state(fn (Get $get) => Qr::render(
                             data: $get($statePath),
                             options: $get($optionsStatePath),
                             statePath: $statePath,
@@ -250,9 +257,10 @@ class Qr extends Facade
     public static function output(?string $data = null, ?array $options = null): HtmlString
     {
         $maker = new Generator;
+        $maker->encoding('UTF-8');
         $size = 0.2;
 
-        $options = array_merge(Qr::getDefaultOptions(), $options);
+        $options = array_merge(Qr::getDefaultOptions(), $options ?? []);
 
         call_user_func_array(
             [$maker, 'color'],
@@ -266,65 +274,66 @@ class Qr extends Facade
 
         $maker = $maker->size(filled($options['size']) ? $options['size'] : static::getDefaultOptions()['size']);
 
-        if ($options['hasGradient']) {
-            if (filled($options['gradient_to']) && filled($options['gradient_form'])) {
+        if (isset($options['hasGradient']) && $options['hasGradient']) {
+            if (filled($options['gradient_to'] ?? null) && filled($options['gradient_form'] ?? null)) {
                 $gradient_form = ColorManager::getColorAsArray($options, 'gradient_form');
                 $gradient_to = ColorManager::getColorAsArray($options, 'gradient_to');
 
-                $gradientOptions = array_merge($gradient_to, $gradient_form, [$options['gradient_type']]);
+                $gradientOptions = array_merge($gradient_to, $gradient_form, [$options['gradient_type'] ?? 'vertical']);
                 call_user_func_array([$maker, 'gradient'], $gradientOptions);
             }
         }
 
-        if ($options['hasEyeColor']) {
-            if (filled($options['eye_color_inner']) && filled($options['eye_color_outer'])) {
+        if (isset($options['hasEyeColor']) && $options['hasEyeColor']) {
+            if (filled($options['eye_color_inner'] ?? null) && filled($options['eye_color_outer'] ?? null)) {
                 $eye_color_inner = ColorManager::getColorAsArray($options, 'eye_color_inner');
                 $eye_color_outer = ColorManager::getColorAsArray($options, 'eye_color_outer');
 
-                $eyeColorInnerOptions = array_merge([0], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
+                $eyeColorInnerOptions0 = array_merge([0], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions0);
 
-                $eyeColorInnerOptions = array_merge([1], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
+                $eyeColorInnerOptions1 = array_merge([1], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions1);
 
-                $eyeColorInnerOptions = array_merge([2], $eye_color_inner, $eye_color_outer);
-                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions);
+                $eyeColorInnerOptions2 = array_merge([2], $eye_color_inner, $eye_color_outer);
+                call_user_func_array([$maker, 'eyeColor'], $eyeColorInnerOptions2);
             }
         }
 
-        if (filled($options['margin'])) {
+        if (filled($options['margin'] ?? null)) {
             $maker = $maker->margin($options['margin']);
         }
 
-        if (filled($options['correction'])) {
+        if (filled($options['correction'] ?? null)) {
             $maker = $maker->errorCorrection($options['correction']);
         }
 
-        if (filled($options['percentage'])) {
-            $size = ($options['percentage']);
+        if (filled($options['percentage'] ?? null)) {
+            $size = $options['percentage'];
         }
 
-        if (filled($options['style'])) {
+        if (filled($options['style'] ?? null)) {
             $maker = $maker->style($options['style']);
         }
 
-        if (filled($options['eye_style'])) {
+        if (filled($options['eye_style'] ?? null)) {
             $maker = $maker->eye($options['eye_style']);
         }
 
-        if (optional($options)['logo']) {
+        if (isset($options['logo']) && filled($options['logo'])) {
             reset($options['logo']);
             $logo = current($options['logo']);
 
             if ($logo instanceof UploadedFile && filled($logo->getPathName())) {
-                $maker = $maker->merge($logo->getPathName(), $size, true);
+                if (! str($logo->getClientOriginalName())->endsWith('.svg') && $logo->getClientMimeType() !== 'image/svg+xml') {
+                    $maker = $maker->merge($logo->getPathName(), $size, true);
+                }
             } else {
                 $disk = optional($options)['uploadOptions']['disk'] ?? 'public';
-                if (Storage::disk($disk)->exists($logo)) {
-                    $maker = $maker->merge(
-                        Storage::disk($disk)->url($logo),
-                        $size,
-                        true
+                if (Storage::disk($disk)->exists($logo) && ! str($logo)->endsWith('.svg') && Storage::disk($disk)->mimeType($logo) !== 'image/svg+xml') {
+                    $maker = $maker->mergeString(
+                        Storage::disk($disk)->get($logo),
+                        $size
                     );
                 }
             }
@@ -346,7 +355,7 @@ class Qr extends Facade
         ?string $fileName = null
     ): HtmlString {
         return new HtmlString(
-            view('zeus-qr::download', [
+            View::make('zeus-qr::download', [
                 'optionsStatePath' => $optionsStatePath,
                 'statePath' => $statePath,
                 'fileName' => $fileName,

@@ -15,6 +15,7 @@ use Filament\Schemas\Components\Utilities\Get;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\HtmlString;
 use LaraZeus\QrCode\Generator;
 
@@ -346,7 +347,7 @@ class Qr extends Facade
         ?string $fileName = null
     ): HtmlString {
         return new HtmlString(
-            view('zeus-qr::download', [
+            View::make('zeus-qr::download', [
                 'optionsStatePath' => $optionsStatePath,
                 'statePath' => $statePath,
                 'fileName' => $fileName,

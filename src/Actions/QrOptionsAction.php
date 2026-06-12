@@ -88,7 +88,7 @@ class QrOptionsAction extends Action
 
     public function getParentState(): string
     {
-        return $this->evaluate($this->parentState ?? 'url');
+        return $this->evaluate($this->parentState);
     }
 
     public function optionsColumn(string $column = 'options'): static
@@ -100,7 +100,7 @@ class QrOptionsAction extends Action
 
     public function getOptionsColumn(): string
     {
-        return $this->optionsColumn ?? 'options';
+        return $this->optionsColumn;
     }
 
     public function fileName(?string $name = null): static

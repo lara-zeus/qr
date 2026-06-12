@@ -219,8 +219,7 @@ class Qr extends Facade
                                 ->validationMessages([
                                     'mimes' => __('svg not supported'),
                                     'mimetypes' => __('svg not supported'),
-                                ])
-                                ->image(),
+                                ]),
 
                             Select::make('percentage')
                                 ->live()
